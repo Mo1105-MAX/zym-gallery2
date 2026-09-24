@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>ZYM工作室 文本页</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#f5f5f5;
+  padding:30px;
+  font-family:system-ui, sans-serif;
+}
+h1{
+  text-align:center;
+  color:#224477;
+  margin-bottom:24px;
+}
+.box{
+  max-width:900px;
+  margin:0 auto;
+  background:#ffffff;
+  padding:24px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  white-space:pre-wrap; /* 保留txt里换行和空格 */
+  line-height:1.6;
+  font-size:16px;
+}
+.loading{
+  color:#666;
+  text-align:center;
+}
+.error{
+  color:#c0392b;
+}
+</style>
+</head>
+<body>
+<h1>ZYM工作室文本</h1>
+<div class="box" id="content">
+  <div class="loading">加载中...</div>
+</div>
+
+<script>
+// 读取 zym.txt
+fetch("./zym.txt")
+.then(res=>{
+  if(!res.ok) throw new Error("文件读取失败");
+  return res.text();
+})
+.then(text=>{
+  document.getElementById("content").innerText = text;
+})
+.catch(err=>{
+  document.getElementById("content").innerHTML = `<div class="error">读取失败：${err.message}<br>确认 zym.txt 和本网页放在同一个文件夹！</div>`;
+})
+</script>
+</body>
+</html>
